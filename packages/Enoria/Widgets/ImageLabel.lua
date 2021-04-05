@@ -11,6 +11,10 @@ function ImageLabel.new(image, options, context)
 	
 	local element = Instance.new("ImageLabel")
 
+	if options.Child ~= nil then
+		options.Child.Parent = element
+	end
+
 	self:SetBaseGuiProperties(element)
 	self:SetBaseGuiEvents(element)
 	self:SetImageLabelGuiProperties(element)

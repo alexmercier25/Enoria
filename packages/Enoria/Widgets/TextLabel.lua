@@ -11,6 +11,10 @@ function TextLabel.new(text, options, context)
 	local element = Instance.new("TextLabel")
 	element.Text = text or ""
 
+	if options.Child ~= nil then
+		options.Child.Parent = element
+	end
+
 	self:SetBaseGuiProperties(element)
 	self:SetBaseGuiEvents(element)
 	self:SetTextGuiProperties(element)

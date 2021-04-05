@@ -11,6 +11,10 @@ function ImageButton.new(image, options, context)
 	
 	local element = Instance.new("ImageButton")
 
+	if options.Child ~= nil then
+		options.Child.Parent = element
+	end
+
 	self:SetBaseGuiProperties(element)
 	self:SetBaseGuiEvents(element)
 	self:SetButtonGuiEvents(element)

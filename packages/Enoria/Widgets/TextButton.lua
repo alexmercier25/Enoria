@@ -12,6 +12,10 @@ function TextButton.new(text, options, context)
 	local element = Instance.new("TextButton")
 	element.Text = text or ""
 
+	if options.Child ~= nil then
+		options.Child.Parent = element
+	end
+
 	self:SetBaseGuiProperties(element)
 	self:SetBaseGuiEvents(element)
 	self:SetButtonGuiEvents(element)
