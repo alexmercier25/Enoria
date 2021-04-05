@@ -11,8 +11,8 @@ function ScrollContainer.new(options, context)
 	
 	local element = Instance.new("ScrollingFrame")
 	
-	if options.Child ~= nil then
-		options.Child.Parent = element
+	if self.Options.Child ~= nil then
+		self.Options.Child.Parent = element
 	end
 	
 	--Theme = Theme.ScrollContainerTheme

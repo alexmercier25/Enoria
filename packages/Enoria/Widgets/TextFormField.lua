@@ -12,8 +12,8 @@ function TextFormField.new(formKey, options, context)
 	local element = Instance.new("TextBox")
 	element.Text = options.Text or ""
 
-	if options.Child ~= nil then
-		options.Child.Parent = element
+	if self.Options.Child ~= nil then
+		self.Options.Child.Parent = element
 	end
 	
 	self:SetPropertyFromOptionsOrTheme(element, "PlaceholderColor3", options)

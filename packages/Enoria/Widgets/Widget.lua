@@ -45,6 +45,10 @@ function Widget:SetPropertyFromOptionsOrTheme(element, propertyName, options, th
 	theme = theme or self.Theme
 	if theme == nil then theme = {} end
 	defaultTheme = defaultTheme or self.DefaultTheme
+
+	-- if options.Class then
+	-- 	theme = self.Context.Classes[options.Class]
+	-- end
 	
 	if element[propertyName] == true or element[propertyName] == false then
 		if options[propertyName] ~= nil then
@@ -69,6 +73,10 @@ function Widget:SetBaseGuiProperties(element)
 	local Theme = self.Theme
 	
 	local options = self.Options
+
+	if options.Class then
+		Theme = self.Context.Classes[options.Class]
+	end
 	
 	self:SetPropertyFromOptionsOrTheme(element, "Active", options)
 	self:SetPropertyFromOptionsOrTheme(element, "Visible", options)
@@ -202,6 +210,10 @@ function Widget:SetTextGuiProperties(element)
 	
 	if Theme == nil then Theme = {} end
 
+	if options.Class then
+		Theme = self.Context.Classes[options.Class]
+	end
+
 	self:SetPropertyFromOptionsOrTheme(element, "Font", options, Theme.TextTheme, self.DefaultTheme.TextTheme)
 	self:SetPropertyFromOptionsOrTheme(element, "LineHeight", options, Theme.TextTheme, self.DefaultTheme.TextTheme)
 	self:SetPropertyFromOptionsOrTheme(element, "RichText", options, Theme.TextTheme, self.DefaultTheme.TextTheme)
@@ -220,6 +232,10 @@ end
 function Widget:SetImageButtonGuiProperties(element)
 	local options = self.Options
 	local Theme = self.Theme
+
+	if options.Class then
+		Theme = self.Context.Classes[options.Class]
+	end
 	
 	self:SetPropertyFromOptionsOrTheme(element, "HoverImage", options, Theme, self.DefaultTheme)
 	self:SetPropertyFromOptionsOrTheme(element, "PressedImage", options, Theme, self.DefaultTheme)
@@ -237,6 +253,10 @@ end
 function Widget:SetImageLabelGuiProperties(element)
 	local options = self.Options
 	local Theme = self.Theme
+
+	if options.Class then
+		Theme = self.Context.Classes[options.Class]
+	end
 	
 	self:SetPropertyFromOptionsOrTheme(element, "ImageColor3", options, Theme, self.DefaultTheme)
 	self:SetPropertyFromOptionsOrTheme(element, "ImageRectSize", options, Theme, self.DefaultTheme)

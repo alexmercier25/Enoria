@@ -12,8 +12,8 @@ function TextButton.new(text, options, context)
 	local element = Instance.new("TextButton")
 	element.Text = text or ""
 
-	if options.Child ~= nil then
-		options.Child.Parent = element
+	if self.Options.Child ~= nil then
+		self.Options.Child.Parent = element
 	end
 
 	self:SetBaseGuiProperties(element)

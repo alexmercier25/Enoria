@@ -14,8 +14,8 @@ function Form.new(formKey, options, context)
 	
 	local element = Instance.new("Frame")
 
-	if options.Child ~= nil then
-		options.Child.Parent = element
+	if self.Options.Child ~= nil then
+		self.Options.Child.Parent = element
 	end
 
 	self:SetBaseGuiProperties(element)
