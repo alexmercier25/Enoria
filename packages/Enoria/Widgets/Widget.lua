@@ -229,6 +229,7 @@ function Widget:SetImageButtonGuiProperties(element)
 	self:SetPropertyFromOptionsOrTheme(element, "ScaleType", options, Theme, self.DefaultTheme)
 	self:SetPropertyFromOptionsOrTheme(element, "SliceScale", options, Theme, self.DefaultTheme)
 	self:SetPropertyFromOptionsOrTheme(element, "ImageRectOffset", options, Theme, self.DefaultTheme)
+	self:SetPropertyFromOptionsOrTheme(element, "SliceCenter", options, Theme, self.DefaultTheme)
 	
 	self:SetButtonGuiEvents(element)
 end
@@ -242,6 +243,7 @@ function Widget:SetImageLabelGuiProperties(element)
 	self:SetPropertyFromOptionsOrTheme(element, "ImageTransparency", options, Theme, self.DefaultTheme)
 	self:SetPropertyFromOptionsOrTheme(element, "ScaleType", options, Theme, self.DefaultTheme)
 	self:SetPropertyFromOptionsOrTheme(element, "SliceScale", options, Theme, self.DefaultTheme)
+	self:SetPropertyFromOptionsOrTheme(element, "SliceCenter", options, Theme, self.DefaultTheme)
 end
 
 return Widget

@@ -243,7 +243,8 @@ local Theme = {
 		ImageTransparency = 0,
 		PressedImage = "",
 		ScaleType = Enum.ScaleType.Stretch,
-		SliceScale = 1
+		SliceScale = 1,
+		SliceCenter = Rect.new(0, 0, 0, 0)
 	},
 
 	ImageLabelTheme = {
@@ -272,7 +273,8 @@ local Theme = {
 		ImageRectSize = Vector2.new(0, 0),
 		ImageTransparency = 0,
 		ScaleType = Enum.ScaleType.Stretch,
-		SliceScale = 1
+		SliceScale = 1,
+		SliceCenter = Rect.new(0, 0, 0, 0)
 	},
 
 	TextLabelTheme = {
