@@ -118,22 +118,6 @@ function Enoria:RunApp(options)
 	--_G.Enoria.Context = Enoria.Context
 end
 
-function Enoria:CloseApp(appName)
-	local context = Enoria.Context
-	if context.GUI then
-		context.GUI:Destroy()
-		Enoria.Context = {}
-		_G.Enoria.CurrentWidgetId = 0
-		for key, value in next, Enoria.Context.Widgets or {} do
-			value.StateInitiated = false
-		end
-	else
-		error("App does not exists!")
-	end
-	
-	--_G.Enoria.Context = Enoria.Context
-end
-
 Enoria.Context.GetElementByName = function(name)
 	local descendants = Enoria.Context.GUI:GetDescendants()
 	
