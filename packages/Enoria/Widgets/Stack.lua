@@ -17,7 +17,7 @@ function Stack.new(options, context)
 		for _, child in ipairs(options.Children) do
 			child.Parent = element
 			child.ZIndex = zindex
-			zindex += 1
+			zindex = zindex + 1
 		end
 	end
 

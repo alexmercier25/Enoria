@@ -266,4 +266,20 @@ function Widget:SetImageLabelGuiProperties(element)
 	self:SetPropertyFromOptionsOrTheme(element, "SliceCenter", options, Theme, self.DefaultTheme)
 end
 
+function Widget:SetViewportGuiProperties(element)
+	local options = self.Options
+	local Theme = self.Theme
+
+	if options.Class then
+		Theme = self.Context.Classes[options.Class]
+	end
+
+	self:SetPropertyFromOptionsOrTheme(element, "Ambient", options, Theme, self.DefaultTheme)
+	self:SetPropertyFromOptionsOrTheme(element, "CurrentCamera", options, Theme, self.DefaultTheme)
+	self:SetPropertyFromOptionsOrTheme(element, "ImageColor3", options, Theme, self.DefaultTheme)
+	self:SetPropertyFromOptionsOrTheme(element, "ImageTransparency", options, Theme, self.DefaultTheme)
+	self:SetPropertyFromOptionsOrTheme(element, "LightColor", options, Theme, self.DefaultTheme)
+	self:SetPropertyFromOptionsOrTheme(element, "LightDirection", options, Theme, self.DefaultTheme)
+end
+
 return Widget

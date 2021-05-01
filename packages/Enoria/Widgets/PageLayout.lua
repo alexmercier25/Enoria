@@ -16,7 +16,7 @@ function PageLayout.new(options, context)
 		for _, child in ipairs(options.Children) do
 			child.Parent = element
 			child.LayoutOrder = layoutOrder
-			layoutOrder += 1
+			layoutOrder = layoutOrder + 1
 		end
 	end
 

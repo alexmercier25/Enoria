@@ -78,6 +78,10 @@ Enoria.HorizontalSpacer = function(size, options)
 	return require(script.Parent.Widgets.HorizontalSpacer).new(size, options, Enoria.Context)
 end
 
+Enoria.Viewport = function(options)
+	return require(script.Parent.Widgets.Viewport).new(options, Enoria.Context)
+end
+
 function Enoria.new()
 	local self = {}
 	setmetatable(self, Enoria)

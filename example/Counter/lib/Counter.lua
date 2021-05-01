@@ -22,7 +22,7 @@ function Counter:Build()
 			Name = self.Increment,
 			OnClick = function()
 				self:SetState(function()
-					self.CurrentNumber += self.Increment
+					self.CurrentNumber = self.CurrentNumber + self.Increment
 				end)
 			end,
 		})

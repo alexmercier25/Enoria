@@ -18,7 +18,7 @@ function Column.new(options, context)
 			child.Parent = element
 			if child:IsA("GuiObject") then
 				child.LayoutOrder = layoutOrder
-				layoutOrder += 1
+				layoutOrder = layoutOrder + 1
 			end
 		end
 	end
