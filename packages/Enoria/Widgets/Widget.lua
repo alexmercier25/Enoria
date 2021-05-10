@@ -45,10 +45,6 @@ function Widget:SetPropertyFromOptionsOrTheme(element, propertyName, options, th
 	theme = theme or self.Theme
 	if theme == nil then theme = {} end
 	defaultTheme = defaultTheme or self.DefaultTheme
-
-	-- if options.Class then
-	-- 	theme = self.Context.Classes[options.Class]
-	-- end
 	
 	if element[propertyName] == true or element[propertyName] == false then
 		if options[propertyName] ~= nil then

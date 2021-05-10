@@ -1,4 +1,4 @@
-_G.EnoriaPath = game.ReplicatedStorage.Common.Enoria.packages.Enoria.Enoria
+_G.EnoriaPath = game.ReplicatedStorage.Common.Enoria.packages.Enoria.Enoria or error("Set _G.EnoriaPath to the absolute path of the Enoria Module.")
 _G.Enoria = {}
 _G.Enoria.CurrentWidgetId = 0
 
