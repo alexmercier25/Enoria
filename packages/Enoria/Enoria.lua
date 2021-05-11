@@ -1,4 +1,18 @@
-_G.EnoriaPath = game.ReplicatedStorage.Common.Enoria.packages.Enoria.Enoria or error("Set _G.EnoriaPath to the absolute path of the Enoria Module.")
+function searchForModule(location)
+	for _, child in ipairs(location) do
+		if child:FindFirstChild("Enoria") then
+			if child:FindFirstChild("Enoria"):IsA("ModuleScript") then
+				return child:FindFirstChild("Enoria")
+			else
+				return searchForModule(child:FindFirstChild("Enoria"))
+			end
+		else
+			return searchForModule(child)
+		end
+	end
+end
+
+_G.EnoriaPath = searchForModule(game.ReplicatedStorage)
 _G.Enoria = {}
 _G.Enoria.CurrentWidgetId = 0
 
