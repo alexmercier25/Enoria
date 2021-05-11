@@ -65,6 +65,18 @@ function Widget:SetPropertyFromOptionsOrTheme(element, propertyName, options, th
 	end
 end
 
+function Widget:DoWithOptionsOrTheme(options, theme, key, doFunction)
+	if options[key] ~= nil then
+		doFunction(options)
+	else
+		if theme ~= nil then
+			if theme[key] ~=nil then
+				doFunction(theme)
+			end
+		end
+	end
+end
+
 function Widget:SetBaseGuiProperties(element)
 	local Theme = self.Theme
 	
@@ -100,66 +112,65 @@ function Widget:SetBaseGuiProperties(element)
 	self:SetPropertyFromOptionsOrTheme(element, "RootLocalizationTable", options, Theme, self.DefaultTheme)
 	self:SetPropertyFromOptionsOrTheme(element, "Archivable", options, Theme, self.DefaultTheme)
 	
-	if options.Name ~= nil then
-		element.Name = options.Name
-	end
+	self:DoWithOptionsOrTheme(options, Theme, "Name", function(obj)
+		element.Name = obj.Name
+	end)
 
-	if options.UIPadding then
+	self:DoWithOptionsOrTheme(options, Theme, "UIPadding", function(obj)
 		local padding = Instance.new("UIPadding")
 		padding.Parent = element
 
-		padding.PaddingBottom = options.UIPadding.Bottom or UDim.new(0, 0)
-		padding.PaddingLeft = options.UIPadding.Left or UDim.new(0, 0)
-		padding.PaddingRight = options.UIPadding.Right or UDim.new(0, 0)
-		padding.PaddingTop = options.UIPadding.Top or UDim.new(0, 0)
+		padding.PaddingBottom = obj.UIPadding.Bottom or UDim.new(0, 0)
+		padding.PaddingLeft = obj.UIPadding.Left or UDim.new(0, 0)
+		padding.PaddingRight = obj.UIPadding.Right or UDim.new(0, 0)
+		padding.PaddingTop = obj.UIPadding.Top or UDim.new(0, 0)
 
-		if options.UIPadding.All then
-			padding.PaddingBottom = options.UIPadding.All
-			padding.PaddingLeft = options.UIPadding.All
-			padding.PaddingRight = options.UIPadding.All
-			padding.PaddingTop = options.UIPadding.All
+		if obj.UIPadding.All then
+			padding.PaddingBottom = obj.UIPadding.All
+			padding.PaddingLeft = obj.UIPadding.All
+			padding.PaddingRight = obj.UIPadding.All
+			padding.PaddingTop = obj.UIPadding.All
 		end
 
-		if options.UIPadding.Vertical then
-			padding.PaddingBottom = options.UIPadding.Vertical
-			padding.PaddingTop = options.UIPadding.Vertical
+		if obj.UIPadding.Vertical then
+			padding.PaddingBottom = obj.UIPadding.Vertical
+			padding.PaddingTop = obj.UIPadding.Vertical
 		end
 
-		if options.UIPadding.Horizontal then
-			padding.PaddingLeft = options.UIPadding.Horizontal
-			padding.PaddingRight = options.UIPadding.Horizontal
+		if obj.UIPadding.Horizontal then
+			padding.PaddingLeft = obj.UIPadding.Horizontal
+			padding.PaddingRight = obj.UIPadding.Horizontal
 		end
-	end
-	
-	if options.UIAspectRatioConstraint then
+	end)
+
+	self:DoWithOptionsOrTheme(options, Theme, "UIAspectRatioConstraint", function(obj)
 		local constraint = Instance.new("UIAspectRatioConstraint")
 		constraint.Parent = element
 		
-		constraint.AspectRatio = options.UIAspectRatioConstraint.AspectRatio or 1
-		constraint.AspectType = options.UIAspectRatioConstraint.ApectType or Enum.AspectType.FitWithinMaxSize
-		constraint.DominantAxis = options.UIAspectRatioConstraint.DominantAxis or Enum.DominantAxis.Width
-	end
+		constraint.AspectRatio = obj.UIAspectRatioConstraint.AspectRatio or 1
+		constraint.AspectType = obj.UIAspectRatioConstraint.ApectType or Enum.AspectType.FitWithinMaxSize
+		constraint.DominantAxis = obj.UIAspectRatioConstraint.DominantAxis or Enum.DominantAxis.Width
+	end)
 
-	if options.Centered then
+	self:DoWithOptionsOrTheme(options, Theme, "Centered", function(obj)
 		element.Position = UDim2.new(0.5, 0, 0.5, 0)
 		element.AnchorPoint = Vector2.new(0.5, 0.5)
-	end
-	
-	if options.CenteredVertically then
+	end)
+
+	self:DoWithOptionsOrTheme(options, Theme, "CenteredVertically", function(obj)
 		element.Position = UDim2.fromScale(element.Position.X.Scale, 0.5)
 		element.AnchorPoint = Vector2.new(0, 0.5)
-	end
-	
-	if options.CenteredHorizontally then
+	end)
+
+	self:DoWithOptionsOrTheme(options, Theme, "CenteredHorizontally", function(obj)
 		element.Position = UDim2.fromScale(0.5, element.Position.Y.Scale)
 		element.AnchorPoint = Vector2.new(0.5, 0)
-	end
-	
-	if options.UICorner then
+	end)
+
+	self:DoWithOptionsOrTheme(options, Theme, "UICorner", function(obj)
 		local corner = Instance.new("UICorner", element)
-		
-		corner.CornerRadius = options.UICorner.CornerRadius or UDim.new(0, 8)
-	end
+		corner.CornerRadius = obj.UICorner.CornerRadius or UDim.new(0, 8)
+	end)
 end
 
 function Widget:SetBaseGuiEvents(element)

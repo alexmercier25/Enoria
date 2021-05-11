@@ -1,18 +1,3 @@
-function searchForModule(location)
-	for _, child in ipairs(location:GetChildren()) do
-		if child:FindFirstChild("Enoria") then
-			if child:FindFirstChild("Enoria"):IsA("ModuleScript") then
-				return child:FindFirstChild("Enoria")
-			else
-				return searchForModule(child:FindFirstChild("Enoria"))
-			end
-		else
-			return searchForModule(child)
-		end
-	end
-end
-
-_G.EnoriaPath = searchForModule(game.ReplicatedStorage)
 _G.Enoria = {}
 _G.Enoria.CurrentWidgetId = 0
 
