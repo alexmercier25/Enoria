@@ -1,5 +1,5 @@
 function searchForModule(location)
-	for _, child in ipairs(location) do
+	for _, child in ipairs(location:GetChildren()) do
 		if child:FindFirstChild("Enoria") then
 			if child:FindFirstChild("Enoria"):IsA("ModuleScript") then
 				return child:FindFirstChild("Enoria")
