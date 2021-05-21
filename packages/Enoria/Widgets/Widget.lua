@@ -116,6 +116,30 @@ function Widget:SetBaseGuiProperties(element)
 		element.Name = obj.Name
 	end)
 
+	self:DoWithOptionsOrTheme(options, Theme, "UIGradient", function(obj)
+		local gradient = Instance.new("UIGradient")
+		gradient.Parent = element
+
+		local white = Color3.new(1, 1, 1)
+		local lightBlue = Color3.new(0, 2/3, 1)
+		local yellow = Color3.new(1, 1, 0)
+		gradient.Color = obj.UIGradient.Color or ColorSequence.new{
+			ColorSequenceKeypoint.new(0, white),
+			ColorSequenceKeypoint.new(0.25, lightBlue),
+			ColorSequenceKeypoint.new(0.5, white),
+			ColorSequenceKeypoint.new(0.75, yellow),
+			ColorSequenceKeypoint.new(1, white)
+		}
+		gradient.Enabled = obj.UIGradient.Enabled or true
+		gradient.Offset = obj.UIGradient.Offset or Vector2.new(0, 0)
+		gradient.Rotation = obj.UIGradient.Rotation or 0
+		gradient.Transparency = obj.UIGradient.Transparency or NumberSequence.new{
+			NumberSequenceKeypoint.new(0, 0), -- (time, value)
+			NumberSequenceKeypoint.new(.5, .75),
+			NumberSequenceKeypoint.new(1, 1)
+		}
+	end)
+
 	self:DoWithOptionsOrTheme(options, Theme, "UIPadding", function(obj)
 		local padding = Instance.new("UIPadding")
 		padding.Parent = element
