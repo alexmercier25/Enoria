@@ -1,5 +1,5 @@
-local e = require(_G.EnoriaPath)
-local Widget = require(_G.EnoriaPath.Parent.Widgets.Widget)
+local e = require(game.ReplicatedStorage.Common.Enoria.packages.Enoria.Enoria)
+local Widget = require(game.ReplicatedStorage.Common.Enoria.packages.Enoria.Enoria)
 
 local Counter = {}
 Counter.__index = Counter

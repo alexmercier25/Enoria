@@ -1,6 +1,3 @@
-_G.Enoria = {}
-_G.Enoria.CurrentWidgetId = 0
-
 local Enoria = {}
 Enoria.__index = Enoria
 
@@ -117,8 +114,6 @@ function Enoria:RunApp(options)
 	else
 		error("App does not have any home widget!")
 	end
-	
-	--_G.Enoria.Context = Enoria.Context
 end
 
 Enoria.Context.GetElementByName = function(name)
