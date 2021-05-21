@@ -19,6 +19,7 @@ function ListBuilder.new(itemCount, builder, options, context)
 	end
 	
 	local list = Instance.new("UIListLayout", element)
+	self:SetPropertyFromOptionsOrTheme(list, "FillDirection", options)
 	self:SetPropertyFromOptionsOrTheme(list, "Padding", options)
 	self:SetPropertyFromOptionsOrTheme(list, "HorizontalAlignment", options)
 	self:SetPropertyFromOptionsOrTheme(list, "VerticalAlignment", options)
