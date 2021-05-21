@@ -140,6 +140,14 @@ function Widget:SetBaseGuiProperties(element)
 		}
 	end)
 
+	self:DoWithOptionsOrTheme(options, Theme, "UITextSizeConstraint", function(obj)
+		local tc = Instance.new("UITextSizeConstraint")
+		tc.Parent = element
+
+		tc.MaxTextSize = obj.UITextSizeConstraint.MaxTextSize or 100
+		tc.MinTextSize = obj.UITextSizeConstraint.MinTextSize or 1
+	end)
+
 	self:DoWithOptionsOrTheme(options, Theme, "UIPadding", function(obj)
 		local padding = Instance.new("UIPadding")
 		padding.Parent = element
