@@ -10,14 +10,10 @@ function Stack.new(options, context)
 	local Theme = self.Theme
 	
 	local element = Instance.new("Frame")
-	
-	local zindex = 0
 
 	if options.Children ~= nil then
 		for _, child in ipairs(options.Children) do
 			child.Parent = element
-			child.ZIndex = zindex
-			zindex = zindex + 1
 		end
 	end
 
