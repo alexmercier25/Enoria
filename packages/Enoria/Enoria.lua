@@ -85,6 +85,65 @@ function Enoria.new()
 	return self
 end
 
+
+
+--[[ ENORIA ID SYSTEM ]]--
+
+local id_letters = {
+    "a", "b", "c", "d", "e",
+    "f", "g", "h", "i", "j",
+    "k", "l", "m", "n", "o",
+    "p", "q", "r", "s", "t",
+    "u", "v", "w", "x", "y", "z"
+}
+local id_numbers = {
+    "0", "1", "2", "3", "4",
+    "5", "6", "7", "8", "9"
+}
+local id_chars = {
+    "-", "]", "[", "|", "_", "@"
+}
+local id_chances = {
+    "letters", "letters",
+    "numbers", "numbers",
+    "chars",
+}
+
+local id_next_char
+
+function id_getChar()
+    local index = math.random(1, #chances)
+
+    if id_chances[index] == "letters" then
+        local random = math.random(1, #id_letters)
+        return id_letters[random]
+    end
+
+    if id_chances[index] == "numbers" then
+        local random = math.random(1, #id_numbers)
+        return id_numbers[random]
+    end
+    
+    if id_chances[index] == "chars" then
+        local random = math.random(1, #id_chars)
+        return chars[random]
+    end
+
+end
+
+function id_randomString(nChars)
+    local result = ""
+    for i = 0, (nChars-1), 1 do
+        id_next_char = tostring(id_getChar())
+        result = result .. id_next_char
+    end
+    return result
+end
+
+--[[ ]] --
+
+
+
 function Enoria:RunApp(options)
 	local context = Enoria.Context
 	local player = game.Players.LocalPlayer
@@ -102,6 +161,7 @@ function Enoria:RunApp(options)
 	local screenGui = Instance.new(options.GUIType or "ScreenGui", output)
 	screenGui.ResetOnSpawn = false
 	screenGui.Name = name
+	screenGui:SetAttribute("EnoriaId", randomString(12))
 	context.GUI = screenGui
 	
 	if options.Face then
