@@ -1,3 +1,5 @@
+local SystemID = require(script.Parent.id)
+
 local Enoria = {}
 Enoria.__index = Enoria
 
@@ -102,6 +104,7 @@ function Enoria:RunApp(options)
 	local screenGui = Instance.new(options.GUIType or "ScreenGui", output)
 	screenGui.ResetOnSpawn = false
 	screenGui.Name = name
+	screenGui:SetAttribute("EnoriaId", SystemID.randomString(12))
 	context.GUI = screenGui
 	
 	if options.Face then
