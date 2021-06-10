@@ -1,85 +1,76 @@
+--# Module for Random ID generation #--
 local SystemID = require(script.Parent.id)
 
 local Enoria = {}
 Enoria.__index = Enoria
 
+--# Context dictionnary creation #--
 Enoria.Context = {}
 Enoria.Context.Widgets = {}
 Enoria.Context.Player = game.Players.LocalPlayer
 Enoria.Context.DefaultTheme = require(script.Parent.DefaultTheme)
 
-Enoria.Container = function(options)
-	return require(script.Parent.Widgets.Container).new(options, Enoria.Context)
-end
+--# List of widgets with required module #--
+local Widgets = {
+	Container = require(script.Parent.Widgets.Container),
+	TextButton = require(script.Parent.Widgets.TextButton),
+	TextLabel = require(script.Parent.Widgets.TextLabel),
+	Column = require(script.Parent.Widgets.Column),
+	Form = require(script.Parent.Widgets.Form),
+	TextFormField = require(script.Parent.Widgets.TextFormField),
+	GridBuilder = require(script.Parent.Widgets.GridBuilder),
+	ImageButton = require(script.Parent.Widgets.ImageButton),
+	ImageLabel = require(script.Parent.Widgets.ImageLabel),
+	ListBuilder = require(script.Parent.Widgets.ListBuilder),
+	Row = require(script.Parent.Widgets.Row),
+	ScrollContainer = require(script.Parent.Widgets.ScrollContainer),
+	TextBox = require(script.Parent.Widgets.TextBox),
+	Stack = require(script.Parent.Widgets.Stack),
+	PageLayout = require(script.Parent.Widgets.PageLayout),
+	VerticalSpacer = require(script.Parent.Widgets.VerticalSpacer),
+	HorizontalSpacer = require(script.Parent.Widgets.HorizontalSpacer),
+	Viewport = require(script.Parent.Widgets.Viewport),
+}
 
-Enoria.TextButton = function(text, options)
-	return require(script.Parent.Widgets.TextButton).new(text, options, Enoria.Context)
-end
+--# Components constructor #--
 
-Enoria.TextLabel = function(text, options)
-	return require(script.Parent.Widgets.TextLabel).new(text, options, Enoria.Context)
-end
+function Enoria.Container(options) return Widgets["Container"].new(options, Enoria.Context) end
 
-Enoria.Column = function(options)
-	return require(script.Parent.Widgets.Column).new(options, Enoria.Context)
-end
+function Enoria.TextButton(text, options) return Widgets["TextButton"].new(text, options, Enoria.Context) end
 
-Enoria.Form = function(formKey, options)
-	return require(script.Parent.Widgets.Form).new(formKey, options, Enoria.Context)
-end
+function Enoria.TextLabel(text, options) return Widgets["TextLabel"].new(text, options, Enoria.Context) end
 
-Enoria.TextFormField = function(formKey, options)
-	return require(script.Parent.Widgets.TextFormField).new(formKey, options, Enoria.Context)
-end
+function Enoria.Column(options) return Widgets["Column"].new(options, Enoria.Context) end
 
-Enoria.GridBuilder = function(itemCount, builder, options)
-	return require(script.Parent.Widgets.GridBuilder).new(itemCount, builder, options, Enoria.Context)
-end
+function Enoria.Form(formKey, options) return Widgets["Form"].new(formKey, options, Enoria.Context) end
 
-Enoria.ImageButton = function(image, options)
-	return require(script.Parent.Widgets.ImageButton).new(image, options, Enoria.Context)
-end
+function Enoria.TextFormField(formKey, options) return Widgets["TextFormField"].new(formKey, options, Enoria.Context) end
 
-Enoria.ImageLabel = function(image, options)
-	return require(script.Parent.Widgets.ImageLabel).new(image, options, Enoria.Context)
-end
+function Enoria.GridBuilder(itemCount, builder, options) return Widgets["GridBuilder"].new(itemCount, builder, options, Enoria.Context) end
 
-Enoria.ListBuilder = function(itemCount, builder, options)
-	return require(script.Parent.Widgets.ListBuilder).new(itemCount, builder, options, Enoria.Context)
-end
+function Enoria.ImageButton(image, options) return Widgets["ImageButton"].new(image, options, Enoria.Context) end
 
-Enoria.Row = function(options)
-	return require(script.Parent.Widgets.Row).new(options, Enoria.Context)
-end
+function Enoria.ImageLabel(image, options) return Widgets["ImageLabel"].new(image, options, Enoria.Context) end
 
-Enoria.ScrollContainer = function(options)
-	return require(script.Parent.Widgets.ScrollContainer).new(options, Enoria.Context)
-end
+function Enoria.ListBuilder(itemCount, builder, options) return Widgets["ListBuilder"].new(itemCount, builder, options, Enoria.Context) end
 
-Enoria.TextBox = function(options)
-	return require(script.Parent.Widgets.TextBox).new(options, Enoria.Context)
-end
+function Enoria.Row(options) return Widgets["Row"].new(options, Enoria.Context) end
 
-Enoria.Stack = function(options)
-	return require(script.Parent.Widgets.Stack).new(options, Enoria.Context)
-end
+function Enoria.ScrollContainer(options) return Widgets["ScrollContainer"].new(options, Enoria.Context) end
 
-Enoria.PageLayout = function(options)
-	return require(script.Parent.Widgets.PageLayout).new(options, Enoria.Context)
-end
+function Enoria.TextBox(options) return Widgets["TextBox"].new(options, Enoria.Context) end
 
-Enoria.VerticalSpacer = function(size, options)
-	return require(script.Parent.Widgets.VerticalSpacer).new(size, options, Enoria.Context)
-end
+function Enoria.Stack(options) return Widgets["Stack"].new(options, Enoria.Context) end
 
-Enoria.HorizontalSpacer = function(size, options)
-	return require(script.Parent.Widgets.HorizontalSpacer).new(size, options, Enoria.Context)
-end
+function Enoria.PageLayout(options) return Widgets["PageLayout"].new(options, Enoria.Context) end
 
-Enoria.Viewport = function(options)
-	return require(script.Parent.Widgets.Viewport).new(options, Enoria.Context)
-end
+function Enoria.VerticalSpacer(size, options) return Widgets["VerticalSpacer"].new(size, options, Enoria.Context) end
 
+function Enoria.HorizontalSpacer(size, options) return Widgets["HorizontalSpacer"].new(size, options, Enoria.Context) end
+
+function Enoria.Viewport(options) return Widgets["Viewport"].new(options, Enoria.Context) end
+
+--- Enoria constructor
 function Enoria.new()
 	local self = {}
 	setmetatable(self, Enoria)
@@ -87,6 +78,8 @@ function Enoria.new()
 	return self
 end
 
+--- Creates a ScreenGui with the provided options.
+---@param options any
 function Enoria:RunApp(options)
 	local context = Enoria.Context
 	local player = game.Players.LocalPlayer
@@ -97,6 +90,7 @@ function Enoria:RunApp(options)
 		context.Theme = {}
 	end
 	
+	-- If there's a sussy imposter DESTROY HIM
 	if output:FindFirstChild(name) then
 		output:FindFirstChild(name):Destroy()
 	end
@@ -111,6 +105,7 @@ function Enoria:RunApp(options)
 		screenGui.Face = options.Face
 	end
 	
+	-- Put the Home widget provided in the ScreenGui
 	if options.Home then
 		options.Home.Parent = screenGui
 		context.RunApp = Enoria.RunApp
@@ -119,42 +114,42 @@ function Enoria:RunApp(options)
 	end
 end
 
-Enoria.Context.GetElementByName = function(name)
-	local descendants = Enoria.Context.GUI:GetDescendants()
+--- Get an element in the current ScreenGui by it's name.
+--- Not the best practice, but it's here if you have no other choices.
+---@param name string
+function Enoria.Context.GetElementByName(name)
+	local player = Enoria.Context.Player
+	local playerGui = player:WaitForChild("PlayerGui") or nil
+	local apps
 	
-	for index, descendant in pairs(descendants) do
-		if descendant.Name == name then
-			return descendant
+	if playerGui then apps = playerGui:GetChildren() end
+
+	for _, app in pairs(apps) do
+		if app.Name == name then
+			return app
 		end
 	end
 	
 	return nil
 end
 
-Enoria.Context.GetElementByEnoriaId = function(id)
-	local descendants = Enoria.Context.GUI:GetDescendants()
+--- Get an element in the current ScreenGui by it's EnoriaId.
+--- Not the best practice, but it's here if you have no other choices.
+---@param id string
+function Enoria.Context.GetAppById(id)
+	local player = Enoria.Context.Player
+	local playerGui = player:WaitForChild("PlayerGui") or nil
+	local apps
 
-	for index, descendant in pairs(descendants) do
-		if descendant:GetAttribute("EnoriaId") == id then
-			return descendant
+	if playerGui then apps = playerGui:GetChildren() end
+
+	for _, app in pairs(apps) do
+		if app:GetAttribute("EnoriaId") == id then
+			return app
 		end
 	end
 
 	return nil
-end
-
-Enoria.Utils = {}
-Enoria.Utils.CreateProject = function(projectName)
-	if projectName == nil or projectName == "" then
-		error("Project name cannot be empty.")
-		return
-	end
-	print("[Enoria] Creating a new project called "..projectName.."...")
-	local newProject = script.Parent.Parent.Parent.example.MyProject:Clone()
-	newProject.Parent = game.StarterPlayer.StarterPlayerScripts
-	newProject.Name = projectName
-	newProject.lib.Main.Name = projectName.."Main"
-	print("[Enoria] Project "..projectName.." was created in "..newProject.Parent.Name)
 end
 
 return Enoria

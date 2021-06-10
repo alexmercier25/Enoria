@@ -1,6 +1,10 @@
 local Widget = {}
 Widget.__index = Widget
 
+--- Creates a new custom widget.
+---@param options any
+---@param theme any
+---@param context any
 function Widget.new(options, theme, context)
 	local self = {}
 	setmetatable(self, Widget)
@@ -10,6 +14,7 @@ function Widget.new(options, theme, context)
 	self.StateInitiated = false
 	self.Context = context
 	
+	-- Set the theme of the widget
 	if context.Theme == nil then
 		self.Theme = {}
 	else
@@ -21,7 +26,10 @@ function Widget.new(options, theme, context)
 	return self
 end
 
+--- Builds the widget tree.
+---@param tree any
 function Widget:BuildTree(tree)
+	-- We create a wrapper frame for the widget's tree
 	local folder = Instance.new("Frame")
 	folder.Name = "_"
 	self.Folder = folder
@@ -31,9 +39,14 @@ function Widget:BuildTree(tree)
 	return tree
 end
 
+--- Changes the state of the widget. It updates the state variables by running the function provided, then rebuilds the widget tree.
+---@param fnc function
 function Widget:SetState(fnc)
 	self.StateInitiated = true
 	fnc()
+	if self.CurrentTree.Parent == nil then
+		error('You may have tried to render a widget outside of the widget tree. Widgets always have to render at build time when calling SetState.')
+	end
 	local parent = self.CurrentTree.Parent
 	self.Folder:Destroy()
 	self.CurrentTree:Destroy()
@@ -41,30 +54,31 @@ function Widget:SetState(fnc)
 	element.Parent = parent
 end
 
+--- Change the given property of the given element by priority: options, theme or the default theme.
+---@param element any
+---@param propertyName string
+---@param options any
+---@param theme any
+---@param defaultTheme any
 function Widget:SetPropertyFromOptionsOrTheme(element, propertyName, options, theme, defaultTheme)
 	theme = theme or self.Theme
 	if theme == nil then theme = {} end
 	defaultTheme = defaultTheme or self.DefaultTheme
 	
-	if element[propertyName] == true or element[propertyName] == false then
-		if options[propertyName] ~= nil then
-			element[propertyName] = options[propertyName] 
-		elseif theme[propertyName] ~= nil then
-			element[propertyName] = theme[propertyName]
-		else
-			element[propertyName] = defaultTheme[propertyName]
-		end
+	if options[propertyName] ~= nil then
+		element[propertyName] = options[propertyName]
+	elseif theme[propertyName] ~= nil then
+		element[propertyName] = theme[propertyName]
 	else
-		if options[propertyName] ~= nil then
-			element[propertyName] = options[propertyName]
-		elseif theme[propertyName] ~= nil then
-			element[propertyName] = theme[propertyName]
-		else
-			element[propertyName] = defaultTheme[propertyName]
-		end
+		element[propertyName] = defaultTheme[propertyName]
 	end
 end
 
+--- Do something with options object or the theme (fallback). It's for more complex props like UIGradient.
+---@param options any
+---@param theme any
+---@param key string
+---@param doFunction function
 function Widget:DoWithOptionsOrTheme(options, theme, key, doFunction)
 	if options[key] ~= nil then
 		doFunction(options)
@@ -77,6 +91,8 @@ function Widget:DoWithOptionsOrTheme(options, theme, key, doFunction)
 	end
 end
 
+--- Sets all the base GuiObject properties of an element.
+---@param element any
 function Widget:SetBaseGuiProperties(element)
 	local Theme = self.Theme
 	
@@ -205,6 +221,8 @@ function Widget:SetBaseGuiProperties(element)
 	end)
 end
 
+--- Sets the base GuiObject events.
+---@param element any
 function Widget:SetBaseGuiEvents(element)
 	local options = self.Options
 
@@ -233,6 +251,8 @@ function Widget:SetBaseGuiEvents(element)
 	element.DescendantRemoving:Connect(options.OnDescendantRemoving or function()end)
 end
 
+--- Sets Button events.
+---@param element any
 function Widget:SetButtonGuiEvents(element)
 	local options = self.Options
 	
@@ -243,6 +263,8 @@ function Widget:SetButtonGuiEvents(element)
 	element.MouseButton2Down:Connect(options.OnRightClickDown or function()end)
 end
 
+--- Sets text properties.
+---@param element any
 function Widget:SetTextGuiProperties(element)
 	local options = self.Options
 	local Theme = self.Theme
@@ -268,6 +290,8 @@ function Widget:SetTextGuiProperties(element)
 	self:SetPropertyFromOptionsOrTheme(element, "TextYAlignment", options, Theme.TextTheme, self.DefaultTheme.TextTheme)
 end
 
+--- Sets ImageButton properties.
+---@param element any
 function Widget:SetImageButtonGuiProperties(element)
 	local options = self.Options
 	local Theme = self.Theme
@@ -289,6 +313,8 @@ function Widget:SetImageButtonGuiProperties(element)
 	self:SetButtonGuiEvents(element)
 end
 
+--- Sets ImageLabel properties.
+---@param element any
 function Widget:SetImageLabelGuiProperties(element)
 	local options = self.Options
 	local Theme = self.Theme
@@ -305,6 +331,8 @@ function Widget:SetImageLabelGuiProperties(element)
 	self:SetPropertyFromOptionsOrTheme(element, "SliceCenter", options, Theme, self.DefaultTheme)
 end
 
+--- Sets Viewport properties.
+---@param element any
 function Widget:SetViewportGuiProperties(element)
 	local options = self.Options
 	local Theme = self.Theme
