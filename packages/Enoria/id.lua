@@ -52,3 +52,5 @@ function SystemID.randomString(nChars)
     end
     return result
 end
+
+return SystemID
