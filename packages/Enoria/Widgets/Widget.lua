@@ -57,6 +57,13 @@ function Widget:SetState(fnc)
 	element.Parent = parent
 end
 
+--- Rebuilds the widget by setting it's state with an empty function
+function Widget:Rebuild()
+	self:SetState(function()
+		-- do nothing
+	end)
+end
+
 --- Change the given property of the given element by priority: options, theme or the default theme.
 ---@param element any
 ---@param propertyName string
