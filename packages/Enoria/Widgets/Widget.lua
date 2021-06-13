@@ -134,10 +134,7 @@ function Widget:SetBaseGuiProperties(element)
 	self:SetPropertyFromOptionsOrTheme(element, "AutoLocalize", options, Theme, self.DefaultTheme)
 	self:SetPropertyFromOptionsOrTheme(element, "RootLocalizationTable", options, Theme, self.DefaultTheme)
 	self:SetPropertyFromOptionsOrTheme(element, "Archivable", options, Theme, self.DefaultTheme)
-	
-	self:DoWithOptionsOrTheme(options, Theme, "Name", function(obj)
-		element.Name = obj.Name
-	end)
+	self:SetPropertyFromOptionsOrTheme(element, "Name", options, Theme, self.DefaultTheme)
 
 	self:DoWithOptionsOrTheme(options, Theme, "UIGradient", function(obj)
 		local gradient = Instance.new("UIGradient")

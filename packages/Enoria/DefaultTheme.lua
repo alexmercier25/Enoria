@@ -80,6 +80,7 @@ local ErrorLabelTextTheme = {
 
 local Theme = {
 	PageLayoutTheme = {
+		Name = "PageLayout",
 		Active = false,
 		AnchorPoint = Vector2.new(0, 0),
 		AutomaticSize = Enum.AutomaticSize.None,
@@ -115,6 +116,7 @@ local Theme = {
 	},
 
 	ContainerTheme = {
+		Name = "Container",
 		Active = false,
 		AnchorPoint = Vector2.new(0, 0),
 		AutomaticSize = Enum.AutomaticSize.None,
@@ -136,6 +138,7 @@ local Theme = {
 	},
 
 	ViewportTheme = {
+		Name = "Viewport",
 		Ambient = Color3.new(200, 200, 200),
 		LightColor = Color3.new(140, 140, 140),
 		LightDirection = Vector3.new(-1, -1, -1),
@@ -163,6 +166,7 @@ local Theme = {
 	},
 
 	FormTheme = {
+		Name = "Form",
 		Active = false,
 		AnchorPoint = Vector2.new(0, 0),
 		AutomaticSize = Enum.AutomaticSize.None,
@@ -184,6 +188,7 @@ local Theme = {
 	},
 
 	ScrollContainerTheme = {
+		Name = "ScrollContainer",
 		Active = false,
 		AnchorPoint = Vector2.new(0, 0),
 		AutomaticSize = Enum.AutomaticSize.None,
@@ -221,6 +226,7 @@ local Theme = {
 	},
 
 	TextButtonTheme = {
+		Name = "TextButton",
 		Active = false,
 		AnchorPoint = Vector2.new(0, 0),
 		AutomaticSize = Enum.AutomaticSize.None,
@@ -243,6 +249,7 @@ local Theme = {
 	},
 
 	ImageButtonTheme = {
+		name = "ImageButton",
 		Active = false,
 		AnchorPoint = Vector2.new(0, 0),
 		AutomaticSize = Enum.AutomaticSize.None,
@@ -275,6 +282,7 @@ local Theme = {
 	},
 
 	ImageLabelTheme = {
+		Name = "ImageLabel",
 		Active = false,
 		AnchorPoint = Vector2.new(0, 0),
 		AutomaticSize = Enum.AutomaticSize.None,
@@ -305,6 +313,7 @@ local Theme = {
 	},
 
 	TextLabelTheme = {
+		Name = "TextLabel",
 		Active = false,
 		AnchorPoint = Vector2.new(0, 0),
 		AutomaticSize = Enum.AutomaticSize.XY,
@@ -327,6 +336,7 @@ local Theme = {
 	},
 
 	TextBoxTheme = {
+		Name = "TextBox",
 		Active = false,
 		AnchorPoint = Vector2.new(0, 0),
 		AutomaticSize = Enum.AutomaticSize.None,
@@ -358,6 +368,7 @@ local Theme = {
 	},
 
 	TextFormFieldTheme = {
+		Name = "TextFormField",
 		Active = false,
 		AnchorPoint = Vector2.new(0, 0),
 		AutomaticSize = Enum.AutomaticSize.None,
@@ -390,6 +401,7 @@ local Theme = {
 	},
 
 	ColumnTheme = {
+		Name = "Column",
 		Active = false,
 		AnchorPoint = Vector2.new(0, 0),
 		AutomaticSize = Enum.AutomaticSize.None,
@@ -416,6 +428,7 @@ local Theme = {
 	},
 
 	StackTheme = {
+		Name = "Stack",
 		Active = false,
 		AnchorPoint = Vector2.new(0, 0),
 		AutomaticSize = Enum.AutomaticSize.None,
@@ -437,6 +450,7 @@ local Theme = {
 	},
 
 	RowTheme = {
+		Name = "Row",
 		Active = false,
 		AnchorPoint = Vector2.new(0, 0),
 		AutomaticSize = Enum.AutomaticSize.None,
@@ -463,6 +477,7 @@ local Theme = {
 	},
 
 	ListBuilderTheme = {
+		Name = "ListBuilder",
 		Active = false,
 		AnchorPoint = Vector2.new(0, 0),
 		AutomaticSize = Enum.AutomaticSize.XY,
@@ -490,6 +505,7 @@ local Theme = {
 	},
 
 	GridBuilderTheme = {
+		Name = "GridBuilder",
 		Active = false,
 		AnchorPoint = Vector2.new(0, 0),
 		AutomaticSize = Enum.AutomaticSize.None,
@@ -541,6 +557,7 @@ local Theme = {
 	},
 	
 	VerticalSpacerTheme = {
+		Name = "VerticalSpacer",
 		Active = false,
 		AnchorPoint = Vector2.new(0, 0),
 		AutomaticSize = Enum.AutomaticSize.None,
@@ -562,6 +579,7 @@ local Theme = {
 	},
 	
 	HorizontalSpacerTheme = {
+		Name = "HorizontalSpacer",
 		Active = false,
 		AnchorPoint = Vector2.new(0, 0),
 		AutomaticSize = Enum.AutomaticSize.None,
