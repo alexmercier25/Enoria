@@ -485,7 +485,8 @@ local Theme = {
 		Padding = UDim.new(0, 0),
 		HorizontalAlignment = Enum.HorizontalAlignment.Left,
 		VerticalAlignment = Enum.VerticalAlignment.Top,
-		SortOrder = Enum.SortOrder.LayoutOrder
+		SortOrder = Enum.SortOrder.LayoutOrder,
+		FillDirection = Enum.FillDirection.Vertical
 	},
 
 	GridBuilderTheme = {

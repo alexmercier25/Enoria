@@ -5,7 +5,7 @@ Widget.__index = Widget
 ---@param options any
 ---@param theme any
 ---@param context any
-function Widget.new(options, theme, context)
+function Widget.new(options, theme, context, name)
 	local self = {}
 	setmetatable(self, Widget)
 	
@@ -21,6 +21,8 @@ function Widget.new(options, theme, context)
 		self.Theme = context.Theme[theme]
 	end
 	
+	self.WidgetName = name
+
 	self.DefaultTheme = context.DefaultTheme[theme]
 	
 	return self
@@ -31,6 +33,7 @@ end
 function Widget:BuildTree(tree)
 	-- We create a wrapper frame for the widget's tree
 	local folder = Instance.new("Frame")
+	folder:SetAttribute("EnoriaName", self.WidgetName)
 	folder.Name = "_"
 	self.Folder = folder
 	tree.Parent = folder.Parent
@@ -100,6 +103,10 @@ function Widget:SetBaseGuiProperties(element)
 
 	if options.Class then
 		Theme = self.Context.Classes[options.Class]
+	end
+
+	if self.WidgetName == nil then
+		element:SetAttribute("EnoriaName", self.WidgetName)
 	end
 	
 	self:SetPropertyFromOptionsOrTheme(element, "Active", options, Theme, self.DefaultTheme)
