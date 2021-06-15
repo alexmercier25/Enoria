@@ -9,6 +9,8 @@ Enoria.Context = {}
 Enoria.Context.Widgets = {}
 Enoria.Context.Player = game.Players.LocalPlayer
 Enoria.Context.DefaultTheme = require(script.Parent.DefaultTheme)
+Enoria.Context.Injections = {}
+Enoria.Context.Uses = {}
 
 --# List of widgets with required module #--
 local Widgets = {
@@ -78,6 +80,10 @@ function Enoria.new()
 	return self
 end
 
+function Enoria:Use(obj)
+	obj.Context = self.Context
+end
+
 --- Creates a ScreenGui with the provided options.
 ---@param options any
 function Enoria:RunApp(options)
@@ -142,6 +148,21 @@ Enoria.Context.GetElementById = function(id)
 	end
 
 	return nil
+end
+
+--- Injects a value in the context object
+---@param name string
+---@param value any
+Enoria.Context.Inject = function(widgetId, name, value)
+	Enoria.Context.Injections[widgetId] = Enoria.Context.Injections[widgetId] or {}
+	Enoria.Context.Injections[widgetId][name] = value
+end
+
+--- Get an injection made in the context object
+---@param name string
+Enoria.Context.GetInjection = function(widgetId, name)
+	print(Enoria.Context.Injections[widgetId])
+	return Enoria.Context.Injections[widgetId][name]
 end
 
 return Enoria

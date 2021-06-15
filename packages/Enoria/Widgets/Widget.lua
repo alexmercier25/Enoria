@@ -1,6 +1,9 @@
 local Widget = {}
 Widget.__index = Widget
 
+--# Module for Random ID generation #--
+local SystemID = require(script.Parent.Parent.id)
+
 --- Creates a new custom widget.
 ---@param options any
 ---@param theme any
@@ -13,6 +16,7 @@ function Widget.new(options, theme, context, name)
 	
 	self.StateInitiated = false
 	self.Context = context
+	self.WidgetId = SystemID.randomString(12)
 	
 	-- Set the theme of the widget
 	if context.Theme == nil then
@@ -47,9 +51,10 @@ end
 function Widget:SetState(fnc)
 	self.StateInitiated = true
 	fnc()
-	if self.CurrentTree.Parent == nil then
-		error('You may have tried to render a widget outside of the widget tree. Widgets always have to render at build time when calling SetState.')
-	end
+	-- if self.CurrentTree.Parent == nil then
+	-- 	error('You may have tried to render a widget outside of the widget tree. Widgets always have to render at build time when calling SetState.')
+	-- end
+	repeat wait() until self.CurrentTree.Parent
 	local parent = self.CurrentTree.Parent
 	self.Folder:Destroy()
 	self.CurrentTree:Destroy()
@@ -62,6 +67,26 @@ function Widget:Rebuild()
 	self:SetState(function()
 		-- do nothing
 	end)
+end
+
+--- Required for calling injections
+---@param widget any
+function Widget:Parent(widget)
+	self.ParentWidgetId = widget
+	return self
+end
+
+--- Get injection made in the context object
+---@param name string
+function Widget:GetInjection(name)
+	return self.Context.GetInjection(self.ParentWidgetId or self.WidgetId, name)
+end
+
+--- Injects a value in the context object
+---@param name string
+---@param value any
+function Widget:Inject(name, value)
+	self.Context.Inject(self.WidgetId, name, value)
 end
 
 --- Change the given property of the given element by priority: options, theme or the default theme.
