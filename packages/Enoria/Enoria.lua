@@ -4,14 +4,6 @@ local SystemID = require(script.Parent.id)
 local Enoria = {}
 Enoria.__index = Enoria
 
---# Context dictionnary creation #--
-Enoria.Context = {}
-Enoria.Context.Widgets = {}
-Enoria.Context.Player = game.Players.LocalPlayer
-Enoria.Context.DefaultTheme = require(script.Parent.DefaultTheme)
-Enoria.Context.Injections = {}
-Enoria.Context.Uses = {}
-
 --# List of widgets with required module #--
 local Widgets = {
 	Container = require(script.Parent.Widgets.Container),
@@ -34,48 +26,40 @@ local Widgets = {
 	Viewport = require(script.Parent.Widgets.Viewport),
 }
 
---# Components constructor #--
-
-function Enoria.Container(options) return Widgets["Container"].new(options, Enoria.Context) end
-
-function Enoria.TextButton(text, options) return Widgets["TextButton"].new(text, options, Enoria.Context) end
-
-function Enoria.TextLabel(text, options) return Widgets["TextLabel"].new(text, options, Enoria.Context) end
-
-function Enoria.Column(options) return Widgets["Column"].new(options, Enoria.Context) end
-
-function Enoria.Form(formKey, options) return Widgets["Form"].new(formKey, options, Enoria.Context) end
-
-function Enoria.TextFormField(formKey, options) return Widgets["TextFormField"].new(formKey, options, Enoria.Context) end
-
-function Enoria.GridBuilder(itemCount, builder, options) return Widgets["GridBuilder"].new(itemCount, builder, options, Enoria.Context) end
-
-function Enoria.ImageButton(image, options) return Widgets["ImageButton"].new(image, options, Enoria.Context) end
-
-function Enoria.ImageLabel(image, options) return Widgets["ImageLabel"].new(image, options, Enoria.Context) end
-
-function Enoria.ListBuilder(itemCount, builder, options) return Widgets["ListBuilder"].new(itemCount, builder, options, Enoria.Context) end
-
-function Enoria.Row(options) return Widgets["Row"].new(options, Enoria.Context) end
-
-function Enoria.ScrollContainer(options) return Widgets["ScrollContainer"].new(options, Enoria.Context) end
-
-function Enoria.TextBox(options) return Widgets["TextBox"].new(options, Enoria.Context) end
-
-function Enoria.Stack(options) return Widgets["Stack"].new(options, Enoria.Context) end
-
-function Enoria.PageLayout(options) return Widgets["PageLayout"].new(options, Enoria.Context) end
-
-function Enoria.VerticalSpacer(size, options) return Widgets["VerticalSpacer"].new(size, options, Enoria.Context) end
-
-function Enoria.HorizontalSpacer(size, options) return Widgets["HorizontalSpacer"].new(size, options, Enoria.Context) end
-
-function Enoria.Viewport(options) return Widgets["Viewport"].new(options, Enoria.Context) end
-
 --- Enoria constructor
 function Enoria.new()
 	local self = {}
 	setmetatable(self, Enoria)
+
+	--# Context dictionnary creation #--
+	
+	self.Context = {}
+	self.Context.Widgets = {}
+	self.Context.Player = game.Players.LocalPlayer
+	self.Context.DefaultTheme = require(script.Parent.DefaultTheme)
+	self.Context.Injections = {}
+	self.Context.Uses = {}
+
+	--# Components constructor #--
+
+	function Enoria.Container(options) return Widgets["Container"].new(options, Enoria.Context) end
+	function Enoria.TextButton(text, options) return Widgets["TextButton"].new(text, options, Enoria.Context) end
+	function Enoria.TextLabel(text, options) return Widgets["TextLabel"].new(text, options, Enoria.Context) end
+	function Enoria.Column(options) return Widgets["Column"].new(options, Enoria.Context) end
+	function Enoria.Form(formKey, options) return Widgets["Form"].new(formKey, options, Enoria.Context) end
+	function Enoria.TextFormField(formKey, options) return Widgets["TextFormField"].new(formKey, options, Enoria.Context) end
+	function Enoria.GridBuilder(itemCount, builder, options) return Widgets["GridBuilder"].new(itemCount, builder, options, Enoria.Context) end
+	function Enoria.ImageButton(image, options) return Widgets["ImageButton"].new(image, options, Enoria.Context) end
+	function Enoria.ImageLabel(image, options) return Widgets["ImageLabel"].new(image, options, Enoria.Context) end
+	function Enoria.ListBuilder(itemCount, builder, options) return Widgets["ListBuilder"].new(itemCount, builder, options, Enoria.Context) end
+	function Enoria.Row(options) return Widgets["Row"].new(options, Enoria.Context) end
+	function Enoria.ScrollContainer(options) return Widgets["ScrollContainer"].new(options, Enoria.Context) end
+	function Enoria.TextBox(options) return Widgets["TextBox"].new(options, Enoria.Context) end
+	function Enoria.Stack(options) return Widgets["Stack"].new(options, Enoria.Context) end
+	function Enoria.PageLayout(options) return Widgets["PageLayout"].new(options, Enoria.Context) end
+	function Enoria.VerticalSpacer(size, options) return Widgets["VerticalSpacer"].new(size, options, Enoria.Context) end
+	function Enoria.HorizontalSpacer(size, options) return Widgets["HorizontalSpacer"].new(size, options, Enoria.Context) end
+	function Enoria.Viewport(options) return Widgets["Viewport"].new(options, Enoria.Context) end
 	
 	return self
 end
@@ -123,7 +107,7 @@ end
 --- Get an element in the current ScreenGui by it's name.
 --- Not the best practice, but it's here if you have no other choices.
 ---@param name string
-Enoria.Context.GetElementByName = function(name)
+function Enoria:GetElementByName(name)
 	local descendants = Enoria.Context.GUI:GetDescendants()
 	
 	for index, descendant in pairs(descendants) do
@@ -138,7 +122,7 @@ end
 --- Get an element in the current ScreenGui by it's EnoriaId.
 --- Not the best practice, but it's here if you have no other choices.
 ---@param id string
-Enoria.Context.GetElementById = function(id)
+function Enoria:GetElementById(id)
 	local descendants = Enoria.Context.GUI:GetDescendants()
 
 	for index, descendant in pairs(descendants) do
@@ -148,21 +132,6 @@ Enoria.Context.GetElementById = function(id)
 	end
 
 	return nil
-end
-
---- Injects a value in the context object
----@param name string
----@param value any
-Enoria.Context.Inject = function(widgetId, name, value)
-	Enoria.Context.Injections[widgetId] = Enoria.Context.Injections[widgetId] or {}
-	Enoria.Context.Injections[widgetId][name] = value
-end
-
---- Get an injection made in the context object
----@param name string
-Enoria.Context.GetInjection = function(widgetId, name)
-	print(Enoria.Context.Injections[widgetId])
-	return Enoria.Context.Injections[widgetId][name]
 end
 
 return Enoria
