@@ -42,36 +42,38 @@ function Enoria.new()
 
 	--# Components constructor #--
 
-	function Enoria.Container(options) return Widgets["Container"].new(options, Enoria.Context) end
-	function Enoria.TextButton(text, options) return Widgets["TextButton"].new(text, options, Enoria.Context) end
-	function Enoria.TextLabel(text, options) return Widgets["TextLabel"].new(text, options, Enoria.Context) end
-	function Enoria.Column(options) return Widgets["Column"].new(options, Enoria.Context) end
-	function Enoria.Form(formKey, options) return Widgets["Form"].new(formKey, options, Enoria.Context) end
-	function Enoria.TextFormField(formKey, options) return Widgets["TextFormField"].new(formKey, options, Enoria.Context) end
-	function Enoria.GridBuilder(itemCount, builder, options) return Widgets["GridBuilder"].new(itemCount, builder, options, Enoria.Context) end
-	function Enoria.ImageButton(image, options) return Widgets["ImageButton"].new(image, options, Enoria.Context) end
-	function Enoria.ImageLabel(image, options) return Widgets["ImageLabel"].new(image, options, Enoria.Context) end
-	function Enoria.ListBuilder(itemCount, builder, options) return Widgets["ListBuilder"].new(itemCount, builder, options, Enoria.Context) end
-	function Enoria.Row(options) return Widgets["Row"].new(options, Enoria.Context) end
-	function Enoria.ScrollContainer(options) return Widgets["ScrollContainer"].new(options, Enoria.Context) end
-	function Enoria.TextBox(options) return Widgets["TextBox"].new(options, Enoria.Context) end
-	function Enoria.Stack(options) return Widgets["Stack"].new(options, Enoria.Context) end
-	function Enoria.PageLayout(options) return Widgets["PageLayout"].new(options, Enoria.Context) end
-	function Enoria.VerticalSpacer(size, options) return Widgets["VerticalSpacer"].new(size, options, Enoria.Context) end
-	function Enoria.HorizontalSpacer(size, options) return Widgets["HorizontalSpacer"].new(size, options, Enoria.Context) end
-	function Enoria.Viewport(options) return Widgets["Viewport"].new(options, Enoria.Context) end
+	function Enoria.Container(options) return Widgets["Container"].new(options, self.Context) end
+	function Enoria.TextButton(text, options) return Widgets["TextButton"].new(text, options, self.Context) end
+	function Enoria.TextLabel(text, options) return Widgets["TextLabel"].new(text, options, self.Context) end
+	function Enoria.Column(options) return Widgets["Column"].new(options, self.Context) end
+	function Enoria.Form(formKey, options) return Widgets["Form"].new(formKey, options, self.Context) end
+	function Enoria.TextFormField(formKey, options) return Widgets["TextFormField"].new(formKey, options, self.Context) end
+	function Enoria.GridBuilder(itemCount, builder, options) return Widgets["GridBuilder"].new(itemCount, builder, options, self.Context) end
+	function Enoria.ImageButton(image, options) return Widgets["ImageButton"].new(image, options, self.Context) end
+	function Enoria.ImageLabel(image, options) return Widgets["ImageLabel"].new(image, options, self.Context) end
+	function Enoria.ListBuilder(itemCount, builder, options) return Widgets["ListBuilder"].new(itemCount, builder, options, self.Context) end
+	function Enoria.Row(options) return Widgets["Row"].new(options, self.Context) end
+	function Enoria.ScrollContainer(options) return Widgets["ScrollContainer"].new(options, self.Context) end
+	function Enoria.TextBox(options) return Widgets["TextBox"].new(options, self.Context) end
+	function Enoria.Stack(options) return Widgets["Stack"].new(options, self.Context) end
+	function Enoria.PageLayout(options) return Widgets["PageLayout"].new(options, self.Context) end
+	function Enoria.VerticalSpacer(size, options) return Widgets["VerticalSpacer"].new(size, options, self.Context) end
+	function Enoria.HorizontalSpacer(size, options) return Widgets["HorizontalSpacer"].new(size, options, self.Context) end
+	function Enoria.Viewport(options) return Widgets["Viewport"].new(options, self.Context) end
 	
 	return self
 end
 
 function Enoria:Use(obj)
 	obj.Context = self.Context
+	self.Context.Uses[obj.Name] = obj
+	return self
 end
 
 --- Creates a ScreenGui with the provided options.
 ---@param options any
 function Enoria:RunApp(options)
-	local context = Enoria.Context
+	local context = self.Context
 	local player = game.Players.LocalPlayer
 	local output = options.Output or player.PlayerGui
 	local name = options.Name or "EnoriaApp"
@@ -108,7 +110,7 @@ end
 --- Not the best practice, but it's here if you have no other choices.
 ---@param name string
 function Enoria:GetElementByName(name)
-	local descendants = Enoria.Context.GUI:GetDescendants()
+	local descendants = self.Context.GUI:GetDescendants()
 	
 	for index, descendant in pairs(descendants) do
 		if descendant.Name == name then
@@ -123,7 +125,7 @@ end
 --- Not the best practice, but it's here if you have no other choices.
 ---@param id string
 function Enoria:GetElementById(id)
-	local descendants = Enoria.Context.GUI:GetDescendants()
+	local descendants = self.Context.GUI:GetDescendants()
 
 	for index, descendant in pairs(descendants) do
 		if descendant:GetAttribute("EnoriaId") == id then

@@ -35,6 +35,10 @@ end
 --- Builds the widget tree.
 ---@param tree any
 function Widget:BuildTree(tree)
+	for i, v in next, self.Context.Uses do
+		v:BeforeWidgetBuild(self)
+	end
+
 	-- We create a wrapper frame for the widget's tree
 	local folder = Instance.new("Frame")
 	folder:SetAttribute("EnoriaName", self.WidgetName)
@@ -42,6 +46,10 @@ function Widget:BuildTree(tree)
 	self.Folder = folder
 	tree.Parent = folder.Parent
 	self.CurrentTree = tree
+
+	for i, v in next, self.Context.Uses do
+		v:AfterWidgetBuild(self)
+	end
 	
 	return tree
 end
@@ -49,6 +57,10 @@ end
 --- Changes the state of the widget. It updates the state variables by running the function provided, then rebuilds the widget tree.
 ---@param fnc function
 function Widget:SetState(fnc)
+	for i, v in next, self.Context.Uses do
+		v:BeforeSetState(self)
+	end
+
 	self.StateInitiated = true
 	fnc()
 	-- if self.CurrentTree.Parent == nil then
