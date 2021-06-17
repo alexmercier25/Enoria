@@ -20,13 +20,14 @@ function FormKey:Validate()
 	
 	self.ErrorLabels = {}
 	
-	for i, v in ipairs(self.Fields) do
+	for i, v in next, self.Fields do
 		local errorLabel
-		if v[1](v[3].Text) ~= nil then
+		if v.Validator(v.Element.Text) ~= nil then
 			allValid = false
-			errorLabel = v[4](v[1](v[3].Text))
+			errorLabel = v.BuildErrorLabel(v.Validator(v.Element.Text))
 			table.insert(self.ErrorLabels, errorLabel)
-			errorLabel.Parent = v[2]
+			errorLabel.Name = "_ErrorLabel"
+			errorLabel.Parent = v.Frame
 		else
 			if errorLabel ~= nil then
 				errorLabel:Destroy()

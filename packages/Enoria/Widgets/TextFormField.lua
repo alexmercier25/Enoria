@@ -49,7 +49,13 @@ function TextFormField.new(formKey, options, context)
 	frame.AutomaticSize = Enum.AutomaticSize.XY
 	frame.BackgroundTransparency = 1
 	
-	table.insert(formKey.Fields, {options.Validator or function()end, frame, element, options.BuildErrorLabel or function()end})
+	formKey.Fields[element.Name] = {
+		Validator = options.Validator or function()end,
+		Frame = frame,
+		Element = element,
+		BuildErrorLabel = options.BuildErrorLabel or function()end
+	}
+	--table.insert(formKey.Fields, {options.Validator or function()end, frame, element, options.BuildErrorLabel or function()end})
 	
 	return frame
 end

@@ -1,6 +1,9 @@
 local Widget = {}
 Widget.__index = Widget
 
+--# Module for Random ID generation #--
+local SystemID = require(script.Parent.Parent.id)
+
 --- Creates a new custom widget.
 ---@param options any
 ---@param theme any
@@ -13,6 +16,7 @@ function Widget.new(options, theme, context, name)
 	
 	self.StateInitiated = false
 	self.Context = context
+	self.WidgetId = SystemID.randomString(12)
 	
 	-- Set the theme of the widget
 	if context.Theme == nil then
@@ -31,6 +35,10 @@ end
 --- Builds the widget tree.
 ---@param tree any
 function Widget:BuildTree(tree)
+	for i, v in next, self.Context.Uses do
+		v:BeforeWidgetBuild(self)
+	end
+
 	-- We create a wrapper frame for the widget's tree
 	local folder = Instance.new("Frame")
 	folder:SetAttribute("EnoriaName", self.WidgetName)
@@ -38,6 +46,10 @@ function Widget:BuildTree(tree)
 	self.Folder = folder
 	tree.Parent = folder.Parent
 	self.CurrentTree = tree
+
+	for i, v in next, self.Context.Uses do
+		v:AfterWidgetBuild(self)
+	end
 	
 	return tree
 end
@@ -45,16 +57,48 @@ end
 --- Changes the state of the widget. It updates the state variables by running the function provided, then rebuilds the widget tree.
 ---@param fnc function
 function Widget:SetState(fnc)
+	for i, v in next, self.Context.Uses do
+		v:BeforeSetState(self)
+	end
+
 	self.StateInitiated = true
 	fnc()
-	if self.CurrentTree.Parent == nil then
-		error('You may have tried to render a widget outside of the widget tree. Widgets always have to render at build time when calling SetState.')
-	end
+	-- if self.CurrentTree.Parent == nil then
+	-- 	error('You may have tried to render a widget outside of the widget tree. Widgets always have to render at build time when calling SetState.')
+	-- end
+	repeat wait() until self.CurrentTree.Parent
 	local parent = self.CurrentTree.Parent
 	self.Folder:Destroy()
 	self.CurrentTree:Destroy()
 	local element = self:Build(self.Context)
 	element.Parent = parent
+end
+
+--- Rebuilds the widget by setting it's state with an empty function
+function Widget:Rebuild()
+	self:SetState(function()
+		-- do nothing
+	end)
+end
+
+--- Required for calling injections
+---@param widget any
+function Widget:Parent(widget)
+	self.ParentWidgetId = widget
+	return self
+end
+
+--- Get injection made in the context object
+---@param name string
+function Widget:GetInjection(name)
+	return self.Context.GetInjection(self.ParentWidgetId or self.WidgetId, name)
+end
+
+--- Injects a value in the context object
+---@param name string
+---@param value any
+function Widget:Inject(name, value)
+	self.Context.Inject(self.WidgetId, name, value)
 end
 
 --- Change the given property of the given element by priority: options, theme or the default theme.
