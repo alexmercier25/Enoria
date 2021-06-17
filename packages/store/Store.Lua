@@ -44,16 +44,12 @@ function Store:Listen(widget, action)
 end
 
 function Store:BeforeWidgetBuild(widget)
-    print("Before widget Build")
 end
 
 function Store:AfterWidgetBuild(widget)
-    print("After widget Build")
-    print(widget.StateInitiated or "Initial")
 end
 
 function Store:BeforeSetState(widget)
-    print("Before widget set state")
 end
 
 return Store
