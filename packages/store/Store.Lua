@@ -1,11 +1,11 @@
 local Store = {}
 Store.__index = Store
 
-function Store.new(state)
+function Store.new(state, name)
    local self = {}
    setmetatable(self, Store)
 
-   self.Name = "Store"
+   self.Name = name or "Store"
    self.Getters = {}
    self.Setters = {}
    self.Actions = {}
