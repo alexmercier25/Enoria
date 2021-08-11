@@ -110,6 +110,9 @@ end
 --- Not the best practice, but it's here if you have no other choices.
 ---@param name string
 function Enoria:GetElementByName(name, context)
+	if context == nil then
+		context = self.Context
+	end
 	local descendants = context.GUI:GetDescendants()
 	
 	for index, descendant in pairs(descendants) do
