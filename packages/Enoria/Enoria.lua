@@ -1,6 +1,9 @@
 --# Module for Random ID generation #--
 local SystemID = require(script.Parent.id)
 
+--# Module for rendering templates #--
+local Render = require(script.Parent.Render)
+
 local Enoria = {}
 Enoria.__index = Enoria
 
@@ -24,6 +27,7 @@ local Widgets = {
 	VerticalSpacer = require(script.Parent.Widgets.VerticalSpacer),
 	HorizontalSpacer = require(script.Parent.Widgets.HorizontalSpacer),
 	Viewport = require(script.Parent.Widgets.Viewport),
+	Observer = require(script.Parent.Widgets.Observer)
 }
 
 --- Enoria constructor
@@ -39,6 +43,7 @@ function Enoria.new()
 	self.Context.DefaultTheme = require(script.Parent.DefaultTheme)
 	self.Context.Injections = {}
 	self.Context.Uses = {}
+	self.Context.TemplatesFolder = nil
 
 	--# Components constructor #--
 
@@ -60,6 +65,8 @@ function Enoria.new()
 	function Enoria.VerticalSpacer(size, options) return Widgets["VerticalSpacer"].new(size, options, self.Context) end
 	function Enoria.HorizontalSpacer(size, options) return Widgets["HorizontalSpacer"].new(size, options, self.Context) end
 	function Enoria.Viewport(options) return Widgets["Viewport"].new(options, self.Context) end
+	function Enoria.Render(templateName, builder) return Render(templateName, self.TemplatesFolder, builder) end
+	function Enoria.Observer(store, actions, widgetTree) return Widgets["Observer"].new(store, widgetTree, actions, self):Build() end
 	
 	return self
 end
@@ -68,6 +75,10 @@ function Enoria:Use(obj)
 	obj.Context = self.Context
 	self.Context.Uses[obj.Name] = obj
 	return self
+end
+
+function Enoria:SetTemplatesFolder(folder)
+	self.TemplatesFolder = folder
 end
 
 --- Creates a ScreenGui with the provided options.
