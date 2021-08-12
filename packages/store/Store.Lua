@@ -1,11 +1,11 @@
 local Store = {}
 Store.__index = Store
 
-function Store.new(state)
+function Store.new(state, name)
    local self = {}
    setmetatable(self, Store)
 
-   self.Name = "Store"
+   self.Name = name or "Store"
    self.Getters = {}
    self.Setters = {}
    self.Actions = {}
@@ -38,9 +38,11 @@ function Store:Commit(name, args)
     end
 end
 
-function Store:Listen(widget, action)
-    self.Widgets[action] = self.Widgets[action] or {}
-    self.Widgets[action][widget.WidgetId] = widget
+function Store:Listen(widget, actions)
+    for i, v in ipairs(actions) do
+        self.Widgets[v] = self.Widgets[v] or {}
+        self.Widgets[v][widget.WidgetId] = widget
+    end
 end
 
 function Store:BeforeWidgetBuild(widget)
