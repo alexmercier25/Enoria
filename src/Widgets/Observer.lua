@@ -20,7 +20,8 @@ end
 function Observer:Build()
    local tree = self:BuildTree(
     self.e.Container({
-        Size = UDim2.fromScale(1, 1),
+        Size = UDim2.fromScale(0, 0),
+        AutomaticSize = Enum.AutomaticSize.XY,
         BackgroundTransparency = 1,
         Name = "_Observer",
         Child = self.Child()

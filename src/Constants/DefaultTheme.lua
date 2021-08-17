@@ -1,5 +1,5 @@
 local TextLabelTextTheme = {
-	Font = Enum.Font.SourceSans,
+	Font = Enum.Font.Gotham,
 	LineHeight = 1,
 	RichText = false,
 	TextColor3 = Color3.fromRGB(0, 0, 0),

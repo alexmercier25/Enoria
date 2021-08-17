@@ -2,7 +2,7 @@ local Widget = {}
 Widget.__index = Widget
 
 --# Module for Random ID generation #--
-local SystemID = require(script.Parent.Parent.id)
+local SystemID = require(script.Parent.Parent.Modules.id)
 
 --- Creates a new custom widget.
 ---@param options any
