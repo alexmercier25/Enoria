@@ -1,5 +1,5 @@
 local Widget = require(script.Parent.Widget)
-local Theme = require(script.Parent.Parent.DefaultTheme)
+local Theme = require(script.Parent.Parent.Constants.DefaultTheme)
 local FormKeyModel = require(script.Parent.FormKey)
 
 local Form = {}
