@@ -4,31 +4,23 @@ local Observer = {}
 Observer.__index = Observer
 setmetatable(Observer, Widget)
 
-function Observer.new(store, child, actions, e)
-   local self = Widget.new(nil, nil, e.Context)
-   setmetatable(self, Observer)
+function Observer.new(context, store, child, actions)
+    local self = Widget.new(nil, nil, context)
+    setmetatable(self, Observer)
 
-   self.Store = store
-   self.Child = child
-   self.e = e
+    store:Listen(self, actions)
+    self.Child = child
 
-   store:Listen(self, actions)
-
-   return self
+    return self
 end
 
 function Observer:Build()
-   local tree = self:BuildTree(
-    self.e.Container({
-        Size = UDim2.fromScale(0, 0),
-        AutomaticSize = Enum.AutomaticSize.XY,
-        BackgroundTransparency = 1,
-        Name = "_Observer",
-        Child = self.Child()
-    })
-   )
+    local element = Instance.new("Folder")
 
-   return tree
+    element.Name = "Observer"
+    self.Child().Parent = element
+
+    return self:BuildTree(element)
 end
 
 return Observer

@@ -69,7 +69,7 @@ function Enoria.new()
 	function Enoria.HorizontalSpacer(size, options) return Widgets["HorizontalSpacer"].new(size, options, self.Context) end
 	function Enoria.Viewport(options) return Widgets["Viewport"].new(options, self.Context) end
 	function Enoria.Render(templateName, builder) return Render(templateName, self.TemplatesFolder, builder) end
-	function Enoria.Observer(store, actions, widgetTree) return Widgets["Observer"].new(store, widgetTree, actions, self):Build() end
+	function Enoria.Observer(store, actions, widgetTree) return Widgets["Observer"].new(self.Context, store, widgetTree, actions):Build() end
 	function Enoria.Nested(widgets) return Widgets["Nested"].new(widgets, self.Context) end
 	
 	return self
