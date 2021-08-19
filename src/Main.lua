@@ -4,6 +4,8 @@ local SystemID = require(script.Parent.Modules.id)
 --# Module for rendering templates #--
 local Render = require(script.Parent.Modules.Render)
 
+local Widget = require(script.Parent.Widgets.Widget)
+
 local Enoria = {}
 Enoria.__index = Enoria
 
@@ -27,7 +29,8 @@ local Widgets = {
 	VerticalSpacer = require(script.Parent.Widgets.VerticalSpacer),
 	HorizontalSpacer = require(script.Parent.Widgets.HorizontalSpacer),
 	Viewport = require(script.Parent.Widgets.Viewport),
-	Observer = require(script.Parent.Widgets.Observer)
+	Observer = require(script.Parent.Widgets.Observer),
+	Nested = require(script.Parent.Widgets.Nested)
 }
 
 --- Enoria constructor
@@ -67,8 +70,15 @@ function Enoria.new()
 	function Enoria.Viewport(options) return Widgets["Viewport"].new(options, self.Context) end
 	function Enoria.Render(templateName, builder) return Render(templateName, self.TemplatesFolder, builder) end
 	function Enoria.Observer(store, actions, widgetTree) return Widgets["Observer"].new(store, widgetTree, actions, self):Build() end
+	function Enoria.Nested(widgets) return Widgets["Nested"].new(widgets, self.Context) end
 	
 	return self
+end
+
+function Enoria:Widget(context, name)
+	local widget = Widget.new(nil, nil, context, name or "Widget")
+
+	return widget
 end
 
 function Enoria:Use(obj)
@@ -81,9 +91,13 @@ function Enoria:SetTemplatesFolder(folder)
 	self.TemplatesFolder = folder
 end
 
+function Enoria:RunApp()
+	self:Run()
+end
+
 --- Creates a ScreenGui with the provided options.
 ---@param options any
-function Enoria:RunApp(options)
+function Enoria:Run(options)
 	local context = self.Context
 	local player = game.Players.LocalPlayer
 	local output = options.Output or player.PlayerGui
