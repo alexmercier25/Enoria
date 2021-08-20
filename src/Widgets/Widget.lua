@@ -4,6 +4,8 @@ Widget.__index = Widget
 --# Module for Random ID generation #--
 local SystemID = require(script.Parent.Parent.Modules.id)
 
+local Functions = require(script.Parent.Parent.Utils.Functions)
+
 --- Creates a new custom widget.
 ---@param options any
 ---@param theme any
@@ -56,7 +58,7 @@ end
 
 --- Changes the state of the widget. It updates the state variables by running the function provided, then rebuilds the widget tree.
 ---@param fnc function
-function Widget:SetState(fnc)
+function Widget:SetState(fnc, properties)
 	for i, v in next, self.Context.Uses do
 		v:BeforeSetState(self)
 	end
@@ -72,6 +74,24 @@ function Widget:SetState(fnc)
 	self.CurrentTree:Destroy()
 	local element = self:Build(self.Context)
 	element.Parent = parent
+end
+
+--- Changes the state of the widget by changing GUI props
+---@param properties dictionnary
+function Widget:SetStateWithProperties(properties)
+	for k, v in next, properties do
+		local strings = k:split('.')
+		local elementName = strings[1]
+		local element = Functions.FindInGui(elementName, self.CurrentTree)
+
+		if element == nil then
+			error(elementName..' is not an element in the widget tree.')
+		end
+
+		print(element[strings[2]])
+
+		element[strings[2]] = v
+	end
 end
 
 --- Rebuilds the widget by setting it's state with an empty function

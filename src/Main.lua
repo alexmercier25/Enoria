@@ -134,11 +134,11 @@ end
 --- Get an element in the current ScreenGui by it's name.
 --- Not the best practice, but it's here if you have no other choices.
 ---@param name string
-function Enoria:GetElementByName(name, context)
+function Enoria:GetElementByName(name, context, gui)
 	if context == nil then
 		context = self.Context
 	end
-	local descendants = context.GUI:GetDescendants()
+	local descendants = gui:GetDescendants() or context.GUI:GetDescendants()
 	
 	for index, descendant in pairs(descendants) do
 		if descendant.Name == name then

@@ -15,7 +15,9 @@ function Observer.new(context, store, child, actions)
 end
 
 function Observer:Build()
-    local element = Instance.new("Folder")
+    local element = Instance.new("Frame")
+    element.AutomaticSize = Enum.AutomaticSize.XY
+    element.BackgroundTransparency = 1
 
     element.Name = "Observer"
     self.Child().Parent = element
