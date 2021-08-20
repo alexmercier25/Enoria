@@ -30,7 +30,8 @@ local Widgets = {
 	HorizontalSpacer = require(script.Parent.Widgets.HorizontalSpacer),
 	Viewport = require(script.Parent.Widgets.Viewport),
 	Observer = require(script.Parent.Widgets.Observer),
-	Nested = require(script.Parent.Widgets.Nested)
+	Nested = require(script.Parent.Widgets.Nested),
+	ArrayBuilder = require(script.Parent.Utils.ArrayBuilder),
 }
 
 --- Enoria constructor
@@ -71,6 +72,7 @@ function Enoria.new()
 	function Enoria.Render(templateName, builder) return Render(templateName, self.TemplatesFolder, builder) end
 	function Enoria.Observer(store, actions, widgetTree) return Widgets["Observer"].new(self.Context, store, widgetTree, actions):Build() end
 	function Enoria.Nested(widgets) return Widgets["Nested"].new(widgets, self.Context) end
+	function Enoria.ArrayBuilder(count, widget) return Widgets["ArrayBuilder"](count, widget) end
 	
 	return self
 end

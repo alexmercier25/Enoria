@@ -88,8 +88,6 @@ function Widget:SetStateWithProperties(properties)
 			error(elementName..' is not an element in the widget tree.')
 		end
 
-		print(element[strings[2]])
-
 		element[strings[2]] = v
 	end
 end
