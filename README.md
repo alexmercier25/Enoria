@@ -9,9 +9,7 @@ Read the Documentation to see how to get started: https://thebuildex.gitbook.io/
 - Declarative syntax
 
 ```lua
-local Enoria = require(game.ReplicatedStorage.Enoria.Enoria) -- importing Enoria core model
-
-local e = Enoria.new() -- creating the Enoria core object
+local e = require(game.ReplicatedStorage.Enoria.Enoria).new() -- importing and initializing Enoria core model
 
 e:RunApp({
 	Name = "MyApp",
