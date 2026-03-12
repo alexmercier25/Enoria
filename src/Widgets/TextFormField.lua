@@ -29,20 +29,13 @@ function TextFormField.new(formKey, options, context)
 	self:SetBaseGuiEvents(element)
 	self:SetTextGuiProperties(element)
 	
-	element.FocusLost:Connect(options.FocusLost or function()end)
-	element.Focused:Connect(options.Focused or function()end)
-	element.ReturnPressedFromOnScreenKeyboard:Connect(options.ReturnPressedForOnScreenKeyboard or function()end)
-	element.FocusLost:Connect(options.FocusLost or function()end)
+	if options.FocusLost then element.FocusLost:Connect(options.FocusLost) end
+	if options.Focused then element.Focused:Connect(options.Focused) end
+	if options.ReturnPressedForOnScreenKeyboard then element.ReturnPressedFromOnScreenKeyboard:Connect(options.ReturnPressedForOnScreenKeyboard) end
 	
 	local frame = Instance.new("Frame")
 	frame.Name = "_TextFormFieldContainer"
 	element.Parent = frame
-	
-	--local errorLabel
-	--if options.BuildErrorLabel ~= nil then
-	--	errorLabel = options.BuildErrorLabel()
-	--	errorLabel.Parent = frame
-	--end
 	
 	local list = Instance.new("UIListLayout", frame)
 	list.HorizontalAlignment = Enum.HorizontalAlignment.Center
@@ -55,8 +48,6 @@ function TextFormField.new(formKey, options, context)
 		Element = element,
 		BuildErrorLabel = options.BuildErrorLabel or function()end
 	}
-	--table.insert(formKey.Fields, {options.Validator or function()end, frame, element, options.BuildErrorLabel or function()end})
-	
 	return frame
 end
 

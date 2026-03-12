@@ -153,32 +153,16 @@ function Widget:SetBaseGuiProperties(element)
 		element:SetAttribute("EnoriaName", self.WidgetName)
 	end
 	
-	self:SetPropertyFromOptionsOrTheme(element, "Active", options, Theme, self.DefaultTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "Visible", options, Theme, self.DefaultTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "AnchorPoint", options, Theme, self.DefaultTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "AutomaticSize", options, Theme, self.DefaultTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "BackgroundColor3", options, Theme, self.DefaultTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "BackgroundTransparency", options, Theme, self.DefaultTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "BorderColor3", options, Theme, self.DefaultTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "BorderMode", options, Theme, self.DefaultTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "BorderSizePixel", options, Theme, self.DefaultTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "LayoutOrder", options, Theme, self.DefaultTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "NextSelectionDown", options, Theme, self.DefaultTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "NextSelectionLeft", options, Theme, self.DefaultTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "NextSelectionRight", options, Theme, self.DefaultTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "NextSelectionUp", options, Theme, self.DefaultTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "Selectable", options, Theme, self.DefaultTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "Size", options, Theme, self.DefaultTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "SizeConstraint", options, Theme, self.DefaultTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "ClipsDescendants", options, Theme, self.DefaultTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "Position", options, Theme, self.DefaultTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "Rotation", options, Theme, self.DefaultTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "SelectionImageObject", options, Theme, self.DefaultTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "ZIndex", options, Theme, self.DefaultTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "AutoLocalize", options, Theme, self.DefaultTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "RootLocalizationTable", options, Theme, self.DefaultTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "Archivable", options, Theme, self.DefaultTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "Name", options, Theme, self.DefaultTheme)
+	local BASE_GUI_PROPERTIES = {
+		"Active", "Visible", "AnchorPoint", "AutomaticSize",
+		"BackgroundColor3", "BackgroundTransparency", "BorderColor3", "BorderMode", "BorderSizePixel",
+		"LayoutOrder", "NextSelectionDown", "NextSelectionLeft", "NextSelectionRight", "NextSelectionUp",
+		"Selectable", "Size", "SizeConstraint", "ClipsDescendants", "Position", "Rotation",
+		"SelectionImageObject", "ZIndex", "AutoLocalize", "RootLocalizationTable", "Archivable", "Name",
+	}
+	for _, prop in ipairs(BASE_GUI_PROPERTIES) do
+		self:SetPropertyFromOptionsOrTheme(element, prop, options, Theme, self.DefaultTheme)
+	end
 
 	self:DoWithOptionsOrTheme(options, Theme, "UIGradient", function(obj)
 		local gradient = Instance.new("UIGradient")
@@ -274,29 +258,21 @@ end
 function Widget:SetBaseGuiEvents(element)
 	local options = self.Options
 
-	element.InputBegan:Connect(options.OnInputBegan or function()end)
-	element.InputChanged:Connect(options.OnInputChanged or function()end)
-	element.InputEnded:Connect(options.OnInputEnded or function()end)
-	element.MouseEnter:Connect(options.OnMouseEnter or function()end)
-	element.MouseLeave:Connect(options.OnMouseLeave or function()end)
-	element.MouseMoved:Connect(options.OnMouseMoved or function()end)
-	element.MouseWheelBackward:Connect(options.OnMouseWheelBackward or function()end)
-	element.MouseWheelForward:Connect(options.OnMouseWheelForward or function()end)
-	element.SelectionGained:Connect(options.OnSelectionGained or function()end)
-	element.SelectionLost:Connect(options.OnSelectionLost or function()end)
-	element.TouchLongPress:Connect(options.OnTouchLongPress or function()end)
-	element.TouchPan:Connect(options.OnTouchPan or function()end)
-	element.TouchPinch:Connect(options.OnTouchPinch or function()end)
-	element.TouchRotate:Connect(options.OnTouchRotate or function()end)
-	element.TouchSwipe:Connect(options.OnTouchSwipe or function()end)
-	element.TouchTap:Connect(options.OnTouchTap or function()end)
-	element.AncestryChanged:Connect(options.OnAncestryChanged or function()end)
-	element.AttributeChanged:Connect(options.OnAttributeChanged or function()end)
-	element.Changed:Connect(options.OnChanged or function()end)
-	element.ChildAdded:Connect(options.OnChildAdded or function()end)
-	element.ChildRemoved:Connect(options.OnChildRemoved or function()end)
-	element.DescendantAdded:Connect(options.OnDescendantAdded or function()end)
-	element.DescendantRemoving:Connect(options.OnDescendantRemoving or function()end)
+	local BASE_GUI_EVENTS = {
+		{"InputBegan", "OnInputBegan"}, {"InputChanged", "OnInputChanged"}, {"InputEnded", "OnInputEnded"},
+		{"MouseEnter", "OnMouseEnter"}, {"MouseLeave", "OnMouseLeave"}, {"MouseMoved", "OnMouseMoved"},
+		{"MouseWheelBackward", "OnMouseWheelBackward"}, {"MouseWheelForward", "OnMouseWheelForward"},
+		{"SelectionGained", "OnSelectionGained"}, {"SelectionLost", "OnSelectionLost"},
+		{"TouchLongPress", "OnTouchLongPress"}, {"TouchPan", "OnTouchPan"},
+		{"TouchPinch", "OnTouchPinch"}, {"TouchRotate", "OnTouchRotate"},
+		{"TouchSwipe", "OnTouchSwipe"}, {"TouchTap", "OnTouchTap"},
+		{"AncestryChanged", "OnAncestryChanged"}, {"AttributeChanged", "OnAttributeChanged"},
+		{"Changed", "OnChanged"}, {"ChildAdded", "OnChildAdded"}, {"ChildRemoved", "OnChildRemoved"},
+		{"DescendantAdded", "OnDescendantAdded"}, {"DescendantRemoving", "OnDescendantRemoving"},
+	}
+	for _, pair in ipairs(BASE_GUI_EVENTS) do
+		if options[pair[2]] then element[pair[1]]:Connect(options[pair[2]]) end
+	end
 end
 
 --- Sets Button events.
@@ -304,11 +280,14 @@ end
 function Widget:SetButtonGuiEvents(element)
 	local options = self.Options
 	
-	element.MouseButton1Click:Connect(options.OnClick or function()end)
-	element.MouseButton1Down:Connect(options.OnClickDown or function()end)
-	element.MouseButton1Up:Connect(options.OnClickUp or function()end)
-	element.MouseButton2Click:Connect(options.OnRightClick or function()end)
-	element.MouseButton2Down:Connect(options.OnRightClickDown or function()end)
+	local BUTTON_EVENTS = {
+		{"MouseButton1Click", "OnClick"}, {"MouseButton1Down", "OnClickDown"},
+		{"MouseButton1Up", "OnClickUp"}, {"MouseButton2Click", "OnRightClick"},
+		{"MouseButton2Down", "OnRightClickDown"},
+	}
+	for _, pair in ipairs(BUTTON_EVENTS) do
+		if options[pair[2]] then element[pair[1]]:Connect(options[pair[2]]) end
+	end
 end
 
 --- Sets text properties.
@@ -323,19 +302,14 @@ function Widget:SetTextGuiProperties(element)
 		Theme = self.Context.Classes[options.Class]
 	end
 
-	self:SetPropertyFromOptionsOrTheme(element, "Font", options, Theme.TextTheme, self.DefaultTheme.TextTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "LineHeight", options, Theme.TextTheme, self.DefaultTheme.TextTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "RichText", options, Theme.TextTheme, self.DefaultTheme.TextTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "TextColor3", options, Theme.TextTheme, self.DefaultTheme.TextTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "TextScaled", options, Theme.TextTheme, self.DefaultTheme.TextTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "TextSize", options, Theme.TextTheme, self.DefaultTheme.TextTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "TextStrokeColor3", options, Theme.TextTheme, self.DefaultTheme.TextTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "TextStrokeTransparency", options, Theme.TextTheme, self.DefaultTheme.TextTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "TextTransparency", options, Theme.TextTheme, self.DefaultTheme.TextTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "TextTruncate", options, Theme.TextTheme, self.DefaultTheme.TextTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "TextWrapped", options, Theme.TextTheme, self.DefaultTheme.TextTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "TextXAlignment", options, Theme.TextTheme, self.DefaultTheme.TextTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "TextYAlignment", options, Theme.TextTheme, self.DefaultTheme.TextTheme)
+	local TEXT_PROPERTIES = {
+		"Font", "LineHeight", "RichText", "TextColor3", "TextScaled", "TextSize",
+		"TextStrokeColor3", "TextStrokeTransparency", "TextTransparency",
+		"TextTruncate", "TextWrapped", "TextXAlignment", "TextYAlignment",
+	}
+	for _, prop in ipairs(TEXT_PROPERTIES) do
+		self:SetPropertyFromOptionsOrTheme(element, prop, options, Theme.TextTheme, self.DefaultTheme.TextTheme)
+	end
 end
 
 --- Sets ImageButton properties.
@@ -348,15 +322,13 @@ function Widget:SetImageButtonGuiProperties(element)
 		Theme = self.Context.Classes[options.Class]
 	end
 	
-	self:SetPropertyFromOptionsOrTheme(element, "HoverImage", options, Theme, self.DefaultTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "PressedImage", options, Theme, self.DefaultTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "ImageColor3", options, Theme, self.DefaultTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "ImageRectSize", options, Theme, self.DefaultTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "ImageTransparency", options, Theme, self.DefaultTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "ScaleType", options, Theme, self.DefaultTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "SliceScale", options, Theme, self.DefaultTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "ImageRectOffset", options, Theme, self.DefaultTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "SliceCenter", options, Theme, self.DefaultTheme)
+	local IMAGE_BUTTON_PROPERTIES = {
+		"HoverImage", "PressedImage", "ImageColor3", "ImageRectSize",
+		"ImageTransparency", "ScaleType", "SliceScale", "ImageRectOffset", "SliceCenter",
+	}
+	for _, prop in ipairs(IMAGE_BUTTON_PROPERTIES) do
+		self:SetPropertyFromOptionsOrTheme(element, prop, options, Theme, self.DefaultTheme)
+	end
 	
 	self:SetButtonGuiEvents(element)
 end
@@ -371,12 +343,12 @@ function Widget:SetImageLabelGuiProperties(element)
 		Theme = self.Context.Classes[options.Class]
 	end
 	
-	self:SetPropertyFromOptionsOrTheme(element, "ImageColor3", options, Theme, self.DefaultTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "ImageRectSize", options, Theme, self.DefaultTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "ImageTransparency", options, Theme, self.DefaultTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "ScaleType", options, Theme, self.DefaultTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "SliceScale", options, Theme, self.DefaultTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "SliceCenter", options, Theme, self.DefaultTheme)
+	local IMAGE_LABEL_PROPERTIES = {
+		"ImageColor3", "ImageRectSize", "ImageTransparency", "ScaleType", "SliceScale", "SliceCenter",
+	}
+	for _, prop in ipairs(IMAGE_LABEL_PROPERTIES) do
+		self:SetPropertyFromOptionsOrTheme(element, prop, options, Theme, self.DefaultTheme)
+	end
 end
 
 --- Sets Viewport properties.
@@ -389,12 +361,12 @@ function Widget:SetViewportGuiProperties(element)
 		Theme = self.Context.Classes[options.Class]
 	end
 
-	self:SetPropertyFromOptionsOrTheme(element, "Ambient", options, Theme, self.DefaultTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "CurrentCamera", options, Theme, self.DefaultTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "ImageColor3", options, Theme, self.DefaultTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "ImageTransparency", options, Theme, self.DefaultTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "LightColor", options, Theme, self.DefaultTheme)
-	self:SetPropertyFromOptionsOrTheme(element, "LightDirection", options, Theme, self.DefaultTheme)
+	local VIEWPORT_PROPERTIES = {
+		"Ambient", "CurrentCamera", "ImageColor3", "ImageTransparency", "LightColor", "LightDirection",
+	}
+	for _, prop in ipairs(VIEWPORT_PROPERTIES) do
+		self:SetPropertyFromOptionsOrTheme(element, prop, options, Theme, self.DefaultTheme)
+	end
 end
 
 return Widget

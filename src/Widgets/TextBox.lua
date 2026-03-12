@@ -30,10 +30,9 @@ function TextBox.new(options, context)
 	self:SetPropertyFromOptionsOrTheme(element, "ShowNativeInput", options)
 	self:SetPropertyFromOptionsOrTheme(element, "TextEditable", options)
 	
-	element.FocusLost:Connect(options.FocusLost or function()end)
-	element.Focused:Connect(options.Focused or function()end)
-	element.ReturnPressedFromOnScreenKeyboard:Connect(options.ReturnPressedForOnScreenKeyboard or function()end)
-	element.FocusLost:Connect(options.FocusLost or function()end)
+	if options.FocusLost then element.FocusLost:Connect(options.FocusLost) end
+	if options.Focused then element.Focused:Connect(options.Focused) end
+	if options.ReturnPressedForOnScreenKeyboard then element.ReturnPressedFromOnScreenKeyboard:Connect(options.ReturnPressedForOnScreenKeyboard) end
 	
 	return element
 end
